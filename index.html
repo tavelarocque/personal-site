@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tave La Rocque</title>
+<meta name="description" content="Tave La Rocque: UBC engineering student working on quantitative research and AI evaluation. Pre-registered market microstructure studies, a NASDAQ order book engine, a formally verified ASIC design.">
+<link rel="canonical" href="https://tavelarocque.com/">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tavelarocque.com/">
+<meta property="og:title" content="Tave La Rocque">
+<meta property="og:description" content="Quantitative research and AI evaluation. Pre-registered studies, verified builds, numbers you can check.">
+<meta property="og:image" content="https://tavelarocque.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Geist';src:url(/fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Geist Mono';src:url(/fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}
+:root{color-scheme:dark}
+body{margin:0;background:#0a0a0a}
+a{color:#ededed;text-decoration:none}a:hover{color:#ffffff}
+
+.glass{position:relative;background:rgba(255,255,255,0.04);-webkit-backdrop-filter:blur(16px) brightness(1.15) contrast(1.1);backdrop-filter:blur(16px) brightness(1.15) contrast(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 12px 24px -12px rgba(255,255,255,.10),inset 0 -1px 0 rgba(255,255,255,.06),0 10px 30px -10px rgba(0,0,0,.8)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.45),rgba(255,255,255,.06) 40%,rgba(255,255,255,.02) 60%,rgba(255,255,255,.18));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude}
+.glass-btn{transition:background-color .45s ease}
+.glass-btn:hover{background:rgba(255,255,255,0.10);transition-duration:.125s}
+.glass-btn:active{transform:scale(.97)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass{background:rgba(22,22,22,.94)}}
+@media (prefers-reduced-transparency: reduce),(prefers-contrast: more){.glass{-webkit-backdrop-filter:none;backdrop-filter:none;background:#161616}.glass::before{background:rgba(255,255,255,.35)}}
+
+.card{background:#0e0e0e;border:1px solid rgba(255,255,255,.08);border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 24px -12px rgba(0,0,0,.6);transition:border-color .45s ease,background-color .45s ease}
+a.card:hover{border-color:rgba(255,255,255,.22);background:#121212;transition-duration:.125s}
+
+.label{margin:0;font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
+.metric{font-family:'Geist Mono',monospace;font-weight:500;font-size:clamp(28px,1.4vw + 18px,36px);line-height:1;letter-spacing:-0.03em;font-variant-numeric:tabular-nums slashed-zero;color:#ededed}
+.tlink{display:inline-flex;align-items:center;gap:6px;padding:10px 0;font-family:'Geist Mono',monospace;font-size:13px;color:#ededed;text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:4px;transition:text-decoration-color .45s ease}
+.tlink:hover{text-decoration-color:#ffffff;transition-duration:.125s}
+
+.arrow{display:inline-block;transition:transform .15s ease-out}
+.row:hover .arrow,.tlink:hover .arrow{transform:translate(2px,-2px)}
+@media (hover:hover){
+.list .row{transition:opacity .45s ease}
+.list:has(.row:hover) .row:not(:hover){opacity:.45;transition-duration:.15s}
+}
+
+.orb{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(255,255,255,.24),rgba(255,255,255,.07) 45%,transparent);animation:drift 36s ease-in-out infinite alternate}
+.orb.b{animation-duration:44s;animation-delay:-12s}
+.orb.c{animation-duration:52s;animation-delay:-24s}
+@keyframes drift{0%{transform:translate(0,0)}50%{transform:translate(120px,40px)}100%{transform:translate(-80px,-30px)}}
+
+.rise{animation:rise .7s cubic-bezier(.23,1,.32,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+@supports (animation-timeline: view()){
+@media (prefers-reduced-motion: no-preference){
+.reveal{animation:auto linear reveal both;animation-timeline:view();animation-range:entry 0% cover 22%}
+}
+}
+@keyframes reveal{from{opacity:0;transform:translateY(12px)}}
+@media (prefers-reduced-motion: reduce){
+.orb{animation:none}
+.rise{animation:fade .4s ease-out both}
+.arrow,.glass-btn,.card,.list .row{transition:none}
+}
+@keyframes fade{from{opacity:0}}
+html{scroll-behavior:auto}
+@media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
+a:focus-visible{outline:2px solid #ededed;outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:16px;top:-48px;z-index:20;padding:10px 14px;background:#ededed;color:#0a0a0a;border-radius:8px;font-size:14px}
+.skip:focus{top:12px;color:#0a0a0a}
+@media (max-width: 560px){.navlink{display:none}}
+.metric sup{font-size:.5em;letter-spacing:0;vertical-align:.9em;margin-left:.04em}
+.sci sup{font-size:.7em;line-height:0}
+.mcap{line-height:1.5;min-height:3em}
+::selection{background:#ededed;color:#0a0a0a}
+</style>
+</head>
+<body>
+<a class="skip" href="#research">Skip to content</a>
+<div style="position: relative; min-height: 100vh; overflow: clip; background: #0a0a0a; color: #ededed; font-family: 'Geist', system-ui, sans-serif; -webkit-font-smoothing: antialiased">
+
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none">
+<div class="orb" style="width: 520px; height: 520px; top: -200px; left: 4%"></div>
+<div class="orb b" style="width: 440px; height: 440px; top: 160px; right: -60px"></div>
+<div class="orb c" style="width: 560px; height: 560px; top: 1700px; left: 30%"></div>
+<div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 28px 28px"></div>
+</div>
+
+<div style="position: sticky; top: 0; z-index: 10; padding: 16px 24px 0">
+<nav class="glass" aria-label="Primary" style="max-width: 1080px; margin: 0 auto; border-radius: 999px; padding: 8px 8px 8px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<svg aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 999px; opacity: 0.06; mix-blend-mode: soft-light; pointer-events: none"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"></feTurbulence></filter><rect width="100%" height="100%" filter="url(#grain)"></rect></svg>
+<a href="#top" style="position: relative; font-family: 'Geist Mono', monospace; font-size: 14px; letter-spacing: 0.02em; padding: 12px 0">tavelarocque</a>
+<div style="position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 2px">
+<a class="navlink" href="#research" style="font-size: 14px; color: #a1a1a1; padding: 12px 14px; border-radius: 999px">Research</a>
+<a class="navlink" href="#builds" style="font-size: 14px; color: #a1a1a1; padding: 12px 14px; border-radius: 999px">Builds</a>
+<a class="navlink" href="#experience" style="font-size: 14px; color: #a1a1a1; padding: 12px 14px; border-radius: 999px">Experience</a>
+<a href="/resume.pdf" class="glass glass-btn" style="font-size: 14px; font-weight: 500; padding: 12px 18px; border-radius: 999px">Resume</a>
+</div>
+</nav>
+</div>
+
+<main id="top" style="position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 24px">
+
+<section style="padding: clamp(112px, 14vw, 176px) 0 clamp(96px, 12vw, 160px); display: flex; flex-direction: column; gap: 28px">
+<p class="label rise" style="animation-delay: 0ms">Quantitative research · AI evaluation · Vancouver</p>
+<h1 class="rise" style="margin: 0; font-size: clamp(56px, 9vw, 112px); line-height: 0.95; font-family: 'Geist', system-ui, sans-serif; font-weight: 500; letter-spacing: -0.045em; animation-delay: 80ms">Tave La Rocque</h1>
+<p class="rise" style="margin: 0; max-width: 660px; font-size: clamp(19px, 1.2vw + 14px, 23px); line-height: 1.45; font-weight: 300; color: #c9c9c9; animation-delay: 160ms">UBC engineering student on full-time research leave, working on market microstructure, online calibration, and whether AI benchmarks measure what they claim to.</p>
+<div class="rise" style="display: flex; flex-wrap: wrap; gap: 10px; padding-top: 8px; animation-delay: 240ms">
+<a href="https://github.com/tavelarocque" rel="noopener" class="glass glass-btn" style="font-size: 15px; padding: 14px 22px; border-radius: 999px">GitHub</a>
+<a href="https://linkedin.com/in/tave-la-rocque" rel="noopener" class="glass glass-btn" style="font-size: 15px; padding: 14px 22px; border-radius: 999px">LinkedIn</a>
+<a href="https://www.instagram.com/tavelarocque/" rel="noopener" class="glass glass-btn" style="font-size: 15px; padding: 14px 22px; border-radius: 999px">Instagram</a>
+<a href="https://www.tiktok.com/@tavelarocque" rel="noopener" class="glass glass-btn" style="font-size: 15px; padding: 14px 22px; border-radius: 999px">TikTok</a>
+<a href="mailto:tave@tavelarocque.com" class="glass glass-btn" style="font-size: 15px; padding: 14px 22px; border-radius: 999px">Email</a>
+</div>
+</section>
+
+<section id="research" style="padding-bottom: clamp(96px, 12vw, 160px); display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 96px">
+<div class="reveal" style="display: flex; align-items: center; gap: 16px; padding-bottom: 8px">
+<h2 class="label">Research</h2>
+<div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1)"></div>
+<span class="label">05</span>
+</div>
+<div class="list" style="display: flex; flex-direction: column">
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">
+<div style="flex: 0 0 120px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">Oct 2026</span><span class="label" style="font-size: 11px">Pre-registered</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">Order-driven volatility fails one of four predictions out of sample</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">A pre-registered test of Maitrier and Bouchaud's 2026 framework on 8 full NASDAQ days, with code frozen before any held-out stock was touched. One prediction is rejected in both tick-size bins and in every confirmatory cell; the other three hold. The run reproduces bit for bit across 2,823 fields. Paper in preparation.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0 24px"><a class="tlink" href="https://osf.io/z4t7x" rel="noopener">Pre-registration <span class="arrow" aria-hidden="true">↗</span></a><a class="tlink" href="https://github.com/tavelarocque/itchbook" rel="noopener">Code <span class="arrow" aria-hidden="true">↗</span></a></div>
+</div>
+</div>
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">
+<div style="flex: 0 0 120px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">Oct 2026</span><span class="label" style="font-size: 11px">Paper</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">Exact minimax values for an open problem in online calibration</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">Exact values of the sign-preservation-with-reuse game behind the sequential calibration bounds of Dagan et al. (STOC 2025), certified in both directions: lower bounds from exact rational strategies, upper bounds from Farkas certificates. A 33-page single-author paper, forthcoming.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0 24px"><a class="tlink" href="https://github.com/tavelarocque/spr-calibration-code" rel="noopener">Code <span class="arrow" aria-hidden="true">↗</span></a></div>
+</div>
+</div>
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">
+<div style="flex: 0 0 120px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">Nov 2026</span><span class="label" style="font-size: 11px">AI evaluation</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">An AI cheating benchmark feeds models a SyntaxError on 1 in 5 attempts</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">A pre-registered re-scoring of 714 ImpossibleBench episodes across two models. The benchmark's extraction rule shows the model a SyntaxError instead of test results on about 20% of attempts, and requiring tests to finish cuts one model's measured cheating rate from 59.2% to 19.4%.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0 24px"><a class="tlink" href="https://github.com/tavelarocque/impossiblebench-extraction-study" rel="noopener">Study and data <span class="arrow" aria-hidden="true">↗</span></a></div>
+</div>
+</div>
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">
+<div style="flex: 0 0 120px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">2026</span><span class="label" style="font-size: 11px">Live system</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">Implied Odds: prediction markets against option-implied probabilities</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">Compares Kalshi contracts on the S&amp;P 500, Nasdaq-100 and Bitcoin with Breeden-Litzenberger densities from arbitrage-checked SVI smiles. Collects data around the clock; every test is pre-registered and judged on a locked holdout.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0 24px"><a class="tlink" href="https://github.com/tavelarocque/implied-odds-research" rel="noopener">Code <span class="arrow" aria-hidden="true">↗</span></a></div>
+</div>
+</div>
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0">
+<div style="flex: 0 0 120px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">2026</span><span class="label" style="font-size: 11px">In progress</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3">Look-ahead leakage in point-in-time LLMs</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">Do language models trained only on data up to a date really know nothing after it? An in-progress, pre-registered audit of whether point-in-time LLMs leak post-cutoff knowledge into financial forecasts.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="builds" style="padding-bottom: clamp(96px, 12vw, 160px); display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 96px">
+<div class="reveal" style="display: flex; align-items: center; gap: 16px">
+<h2 class="label">Builds</h2>
+<div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1)"></div>
+<span class="label">06</span>
+</div>
+<div class="list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px">
+
+<a href="https://github.com/tavelarocque/itchbook" rel="noopener" class="card row reveal" style="padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px"><span class="label" style="font-size: 11px">C++20</span><span class="arrow" aria-hidden="true" style="font-size: 16px; color: #a1a1a1">↗</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.02em">itchbook</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">NASDAQ's full order-by-order book rebuilt from 423M raw TotalView-ITCH 5.0 messages a day, output byte-identical to an independent Python reference. Found that 85% of cancelled volume leaves from behind a resting order, so standard L2 queue models overfill backtests.</p>
+</div>
+<div style="padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; gap: 8px">
+<span class="metric">92&nbsp;ns</span>
+<span class="mcap" style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8a8a8a">per message · 3.3× faster than CppTrader on the same machine</span>
+</div>
+</a>
+
+<a href="https://github.com/tavelarocque/protocol-emulator" rel="noopener" class="card row reveal" style="padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px"><span class="label" style="font-size: 11px">Hardcaml · ASIC</span><span class="arrow" aria-hidden="true" style="font-size: 16px; color: #a1a1a1">↗</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.02em">protocol-emulator</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">A two-thread programmable protocol CPU for Jane Street's ASIC competition, designed for Tiny Tapeout's IHP 130 nm shuttle and passing signoff. Formally verified pins to pins against an independent spec with a SAT equivalence proof.</p>
+</div>
+<div style="padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; gap: 8px">
+<span class="metric">47&nbsp;/&nbsp;47</span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8a8a8a" class="mcap">planted bugs caught · build fails if any survives</span>
+</div>
+</a>
+
+<a href="https://tavelarocque.github.io/holdem-cfr" rel="noopener" class="card row reveal" style="padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px"><span class="label" style="font-size: 11px">Rust · playable in browser</span><span class="arrow" aria-hidden="true" style="font-size: 16px; color: #a1a1a1">↗</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.02em">holdem-cfr</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">A counterfactual regret minimization solver for heads-up no-limit hold'em, verified against exact best responses at <span class="sci">4.9×10<sup>−6</sup></span> exploitability on Leduc. Multithreaded results are bit-identical to serial.</p>
+</div>
+<div style="padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; gap: 8px">
+<span class="metric">1.5B</span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8a8a8a" class="mcap">MCCFR iterations in the blueprint</span>
+</div>
+</a>
+
+<a href="https://github.com/tavelarocque/ocaml-contracts" rel="noopener" class="card row reveal" style="padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px"><span class="label" style="font-size: 11px">OCaml · Jane Street Core</span><span class="arrow" aria-hidden="true" style="font-size: 16px; color: #a1a1a1">↗</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.02em">ocaml-contracts</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">Peyton Jones, Eber and Seward's Composing Contracts as a typed DSL, pricing Kalshi Bitcoin contracts from Deribit-implied densities, with Greeks, delta hedging and an Avellaneda-Stoikov market maker.</p>
+</div>
+<div style="padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; gap: 8px">
+<span class="metric">2.7×10<sup>−12</sup></span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8a8a8a" class="mcap">max disagreement · 3 independent pricers · 13,804 contracts</span>
+</div>
+</a>
+
+<div class="card row reveal" style="padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px"><span class="label" style="font-size: 11px">Rust · MPC</span><span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #ededed; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2)">In progress</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.02em">darkmpc</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">A dark pool even its operator can't see into. Orders are secret-shared across three servers that run the auction jointly, so no single server ever sees an order.</p>
+</div>
+</div>
+
+<a href="https://modux.ca" rel="noopener" class="card row reveal" style="padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px"><span class="label" style="font-size: 11px">iOS · React Native · Supabase</span><span class="arrow" aria-hidden="true" style="font-size: 16px; color: #a1a1a1">↗</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<h3 style="margin: 0; font-size: 24px; font-weight: 500; letter-spacing: -0.02em">MODUX</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">A training app for hybrid athletes, co-founded and solo-built end to end. Its readiness score models the conflict between strength and endurance load as an 11-dimensional fatigue vector with 72-hour decay.</p>
+</div>
+<div style="padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; gap: 8px">
+<span class="metric">10&nbsp;days</span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8a8a8a" class="mcap">from first commit to App Store submission</span>
+</div>
+</a>
+
+</div>
+</section>
+
+<section id="experience" style="padding-bottom: clamp(96px, 12vw, 160px); display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 96px">
+<div class="reveal" style="display: flex; align-items: center; gap: 16px; padding-bottom: 8px">
+<h2 class="label">Experience</h2>
+<div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1)"></div>
+<span class="label">04</span>
+</div>
+<div class="list" style="display: flex; flex-direction: column">
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">
+<div style="flex: 0 0 120px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">May to Aug 2026</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em">Vancity <span style="color: #8a8a8a; font-weight: 400">· Indigenous Project Assistant Intern</span></h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">Selected 47 of 8,500 applicants for the inaugural cohort. Rebuilt a complaints risk classification system across 2,370 cases; its validation layer caught a 10× reporting error before executive review.</p>
+</div>
+</div>
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">
+<div style="flex: 0 0 120px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">Feb 2026 to now</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em">Current at UBC <span style="color: #8a8a8a; font-weight: 400">· Co-founder &amp; CEO</span></h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">One evening in April 2027 putting 300 UBC students in a room with Vancouver's finance and venture leaders. Three keynotes who stay for the networking floor; all net proceeds to BC Children's Hospital Foundation.</p>
+<div><a class="tlink" href="https://currentatubc.com" rel="noopener">currentatubc.com <span class="arrow" aria-hidden="true">↗</span></a></div>
+</div>
+</div>
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.08)">
+<div style="flex: 0 0 120px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">Jun 2026 to now</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em">Short-form media <span style="color: #8a8a8a; font-weight: 400">· Founder</span></h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">Grew from 1,040 to 200,000+ followers in five months by running it as a measurement loop: per-video retention data, one variable tested at a time, skip rate cut from about 60% to under 20%.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 0 24px"><a class="tlink" href="https://www.instagram.com/tavelarocque/" rel="noopener">Instagram <span class="arrow" aria-hidden="true">↗</span></a><a class="tlink" href="https://www.tiktok.com/@tavelarocque" rel="noopener">TikTok <span class="arrow" aria-hidden="true">↗</span></a></div>
+</div>
+</div>
+
+<div class="row reveal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 28px 0">
+<div style="flex: 0 0 120px"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #a1a1a1">May 2026 to now</span></div>
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; max-width: 720px">
+<h3 style="margin: 0; font-size: 21px; font-weight: 500; letter-spacing: -0.01em">KS Society <span style="color: #8a8a8a; font-weight: 400">· Director of Philanthropy</span></h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #a1a1a1">Promoted after leading external recruitment; owns philanthropic strategy and partner outreach.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<footer style="padding: 32px 0 48px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8a8a8a">© 2026 Tave La Rocque</span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8a8a8a">v1 · Nov 2026 · tavelarocque.com</span>
+</footer>
+
+</main>
+</div>
+</body>
+</html>
