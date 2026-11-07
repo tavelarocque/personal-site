@@ -1,0 +1,7 @@
+{
+  "name": "pe-viewer",
+  "private": true,
+  "description": "Builds projects/protocol-emulator/viewer.js from viewer.src.js",
+  "scripts": { "build": "esbuild viewer.src.js --bundle --format=esm --minify --target=es2020 --legal-comments=eof --outfile=../../projects/protocol-emulator/viewer.js" },
+  "devDependencies": { "esbuild": "0.25.12", "three": "0.187.0" }
+}

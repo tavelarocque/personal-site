@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>protocol-emulator layout · Tave La Rocque</title>
+<meta name="description" content="A rotatable 3D view of protocol-emulator's layout, drawn from the GDS of the build that passes DRC, LVS and the Tiny Tapeout precheck. IHP 130 nm, 6x4 Tiny Tapeout tiles. Designed for tapeout.">
+<link rel="canonical" href="https://tavelarocque.com/projects/protocol-emulator/">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Geist';src:url(/fonts/Geist-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Geist Mono';src:url(/fonts/GeistMono-Variable.woff2) format('woff2');font-weight:100 900;font-display:swap}
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion: reduce){@view-transition{navigation:none}}
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#0a0a0a;color:#ededed;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#ededed;text-decoration:none}a:hover{color:#fff}
+a:focus-visible,button:focus-visible,input:focus-visible,.stage:focus-visible{outline:2px solid #ededed;outline-offset:3px;border-radius:6px}
+.glass{position:relative;background:rgba(255,255,255,0.04);-webkit-backdrop-filter:blur(16px) brightness(1.15) contrast(1.1);backdrop-filter:blur(16px) brightness(1.15) contrast(1.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 12px 24px -12px rgba(255,255,255,.10),inset 0 -1px 0 rgba(255,255,255,.06),0 10px 30px -10px rgba(0,0,0,.8)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.45),rgba(255,255,255,.06) 40%,rgba(255,255,255,.02) 60%,rgba(255,255,255,.18));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude}
+.glass-btn{transition:background-color .45s ease;cursor:pointer;color:#ededed;border:0;font:inherit}
+.glass-btn:hover{background:rgba(255,255,255,0.10);transition-duration:.125s}
+.glass-btn:active{transform:scale(.97)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass{background:rgba(22,22,22,.94)}}
+.card{background:#0e0e0e;border:1px solid rgba(255,255,255,.08);border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 24px -12px rgba(0,0,0,.6)}
+.label{margin:0;font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a}
+.mono{font-family:'Geist Mono',monospace}
+.metric{font-family:'Geist Mono',monospace;font-weight:500;font-size:clamp(24px,1.4vw + 14px,32px);line-height:1;letter-spacing:-0.03em;font-variant-numeric:tabular-nums slashed-zero;color:#ededed}
+.mcap{font-family:'Geist Mono',monospace;font-size:12px;color:#8a8a8a;line-height:1.5}
+.orb{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(255,197,61,.13),rgba(255,197,61,.04) 45%,transparent);animation:drift 36s ease-in-out infinite alternate}
+.orb.b{animation-duration:44s;animation-delay:-12s}
+@keyframes drift{0%{transform:translate(0,0)}50%{transform:translate(120px,40px)}100%{transform:translate(-80px,-30px)}}
+@media (prefers-reduced-motion: reduce){.orb{animation:none}.glass-btn{transition:none}}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08)}
+.metrics>div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.viewer{view-transition-name:pe-card;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) 248px}
+.stage{position:relative;min-height:600px;background:#0a0a0a;touch-action:none}
+.stage canvas{display:block;position:absolute;inset:0}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;background:rgba(10,10,10,.55)}
+[hidden]{display:none!important}
+.panel{border-left:1px solid rgba(255,255,255,.08);padding:20px;display:flex;flex-direction:column;gap:20px;font-family:'Geist Mono',monospace;font-size:13px}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+legend{padding:0;margin-bottom:8px}
+.opt{display:flex;align-items:center;gap:10px;color:#a1a1a1;cursor:pointer;padding:3px 0}
+.opt input{accent-color:#ffc53d;margin:0;width:14px;height:14px}
+.opt:hover{color:#ededed}
+.opt .k{margin-left:auto;color:#5f5f5f;font-size:11px}
+.opt .n{margin-left:auto;color:#8a8a8a;font-variant-numeric:tabular-nums}
+.tags{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.tag{position:absolute;left:0;top:0;display:flex;align-items:center;gap:6px;margin:-11px 0 0 -4px;font:500 11px/1 'Geist Mono',monospace;color:#ededed;white-space:nowrap;will-change:transform}
+.tag::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#ededed;box-shadow:0 0 0 3px rgba(10,10,10,.85)}
+.tag span{background:rgba(10,10,10,.82);border:1px solid rgba(255,255,255,.16);padding:5px 8px;border-radius:6px}
+.tag.flip{flex-direction:row-reverse}
+.tag.on{color:#ffc53d}.tag.on::before{background:#ffc53d}.tag.on span{border-color:rgba(255,197,61,.5)}
+.sw{flex:none;width:10px;height:10px;border-radius:2px;border:1px solid rgba(255,255,255,.12)}
+.views{display:flex;flex-wrap:wrap;gap:6px}
+.vbtn{font-family:'Geist Mono',monospace;font-size:12px;padding:7px 11px;border-radius:999px;color:#a1a1a1;background:transparent;border:1px solid rgba(255,255,255,.14);cursor:pointer}
+.vbtn:hover{color:#ededed;border-color:rgba(255,255,255,.3)}
+.vbtn[aria-pressed="true"]{color:#0a0a0a;background:#ededed;border-color:#ededed}
+.range{display:flex;align-items:center;gap:10px;color:#a1a1a1}
+.range input{flex:1;accent-color:#ffc53d;min-width:0}
+.btn{font-family:'Geist Mono',monospace;font-size:13px;padding:10px 16px;border-radius:999px}
+.hint{color:#8a8a8a;font-size:11px;line-height:1.6}
+.amber{color:#ffc53d}
+.prose{max-width:720px;font-size:16px;line-height:1.7;color:#a1a1a1}
+.prose p{margin:0 0 16px}
+.prose strong{color:#ededed;font-weight:500}
+@media (max-width: 860px){
+.viewer{grid-template-columns:minmax(0,1fr)}
+[hidden]{display:none!important}
+.panel{border-left:0;border-top:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel .full{grid-column:1/-1}
+.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stage{aspect-ratio:4/3;min-height:0}
+}
+@media (max-width: 420px){.panel{grid-template-columns:1fr}}
+::selection{background:#ededed;color:#0a0a0a}
+</style>
+</head>
+<body>
+<div style="position:relative;min-height:100vh;overflow:clip">
+<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+<div class="orb" style="width:620px;height:620px;top:-240px;left:-4%"></div>
+<div class="orb b" style="width:520px;height:520px;top:120px;right:-120px"></div>
+<div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.08) 1px,transparent 1px);background-size:28px 28px"></div>
+</div>
+
+<div style="position:sticky;top:0;z-index:10;padding:16px 24px 0">
+<nav class="glass" aria-label="Primary" style="max-width:1080px;margin:0 auto;border-radius:999px;padding:8px 8px 8px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+<a href="/" style="font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:.02em;padding:12px 0"><span aria-hidden="true">←&nbsp;</span>tavelarocque</a>
+<a href="https://github.com/tavelarocque/protocol-emulator" rel="noopener" class="glass glass-btn" style="font-size:14px;font-weight:500;padding:12px 18px;border-radius:999px">GitHub <span aria-hidden="true">↗</span></a>
+</nav>
+</div>
+
+<main style="position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:56px 24px 96px;display:flex;flex-direction:column;gap:40px">
+
+<header style="display:flex;flex-direction:column;gap:16px">
+<p class="label">Hardcaml · ASIC · layout</p>
+<h1 style="margin:0;font-size:clamp(36px,4vw + 16px,56px);font-weight:500;letter-spacing:-0.035em;line-height:1.05;view-transition-name:pe-title">protocol-emulator</h1>
+<p style="margin:0;max-width:680px;font-size:18px;line-height:1.6;color:#a1a1a1">The physical layout of a two-thread programmable protocol CPU for Jane Street's ASIC competition, drawn from the GDS of the build that passes DRC, LVS and the Tiny Tapeout precheck. Designed for tapeout on IHP 130 nm, 6x4 Tiny Tapeout tiles.</p>
+</header>
+
+<section class="metrics" aria-label="Build metrics">
+<div><span class="metric">18,817</span><span class="mcap">standard cells</span></div>
+<div><span class="metric">0&nbsp;/&nbsp;0</span><span class="mcap">DRC / LVS errors</span></div>
+<div><span class="metric">1,525</span><span class="mcap">of 1,796 flip-flops traced to a named register</span></div>
+<div><span class="metric">1289&times;711</span><span class="mcap">die, µm</span></div>
+</section>
+
+<section aria-labelledby="viewer-h" style="display:flex;flex-direction:column;gap:14px">
+<h2 id="viewer-h" class="label">Layout, rotatable</h2>
+<div class="card viewer">
+<div class="stage" id="stage" tabindex="0" role="application" aria-label="3D layout viewer. Arrow keys rotate, plus and minus zoom, R resets the view, keys 1 to 9 toggle layers." aria-describedby="summary">
+<img id="still" src="layout.webp" width="1600" height="1000" alt="The protocol-emulator layout seen at an angle, metal levels spread apart: dense grey wiring fills most of a dark rectangular die and evenly spaced power straps run across it. Labels mark the program memory, thread 0 and thread 1 registers, the SPI host port, a Metal4 power strap, and the strip on the right with no logic cells.">
+<div class="overlay" id="overlay">
+<button class="glass glass-btn btn" id="load" type="button">Load 3D model <span class="mcap" id="size"></span></button>
+<span class="mcap" id="status" role="status" aria-live="polite"></span>
+</div>
+</div>
+<div class="panel" id="panel" hidden>
+<fieldset class="full"><legend class="label">View</legend>
+<div class="views" id="views">
+<button type="button" class="vbtn" data-view="angled" aria-pressed="true">Angled</button>
+<button type="button" class="vbtn" data-view="top" aria-pressed="false">Top down</button>
+<button type="button" class="vbtn" data-view="apart" aria-pressed="false">Layers apart</button>
+</div>
+<label class="range" for="spread"><span>Spread</span><input type="range" id="spread" min="0" max="90" step="1"><span class="n" id="spreadv"></span></label>
+<label class="opt"><input type="checkbox" id="labels" checked><span>Labels</span></label>
+</fieldset>
+<fieldset id="layers"><legend class="label">Layers</legend></fieldset>
+<fieldset id="hl"><legend class="label">Highlight registers</legend></fieldset>
+<div class="full" style="display:flex;flex-direction:column;gap:12px">
+<button class="glass glass-btn btn" id="reset" type="button" disabled>Reset view</button>
+<p class="hint" style="margin:0">Labels mark what the build data identifies. Drag to rotate · scroll or pinch to zoom · right drag to pan. Keys: arrows, + / −, R, 1 to 9.</p>
+</div>
+</div>
+</div>
+<p class="mcap" id="caption" style="margin:0;max-width:880px">protocol-emulator layout, IHP 130 nm (SG13CMOS5L), 6x4 Tiny Tapeout tiles, rendered from the GDS built in CI at commit <a class="mono" style="text-decoration:underline;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:3px" href="https://github.com/tavelarocque/protocol-emulator/tree/573166d940f2e242c2e2294c86f2d0efff7bdcda" rel="noopener">573166d</a> (LibreLane 3.1.0.dev3, PDK revision 2bbec75). Layer heights from IHP-Open-PDK, vertical scale exaggerated 20&times;; the Spread control pulls the metal levels further apart for legibility, and 0 shows the stack in proportion. The 59,507 filler and decap cells are not drawn. Register owners come from net names in the routed DEF. Designed for tapeout.</p>
+</section>
+
+<section aria-labelledby="summary-h" class="prose" id="summary">
+<h2 id="summary-h" class="label" style="margin-bottom:16px">What the view shows</h2>
+<p>The die is 1,289 by 711 µm, the 6x4 tile allocation set by the competition. Standard cells sit in rows on the silicon; above them the router used four metal layers, <strong>Metal1 to Metal4</strong>, joined by three via layers. The widest straps are the power grid. The strip along the right edge, 254 µm wide, holds no logic cells at all, only filler cells and power. Active area and polysilicon, the transistor layers, are off by default and can be switched on.</p>
+<p>Of the 1,796 flip-flops, <strong>1,525</strong> still carry the name of the register they hold, so their owner can be read straight from the routed layout: <strong>1,024</strong> hold the shared 64-word program memory, <strong>237</strong> belong to thread 0, <strong>237</strong> to thread 1, <strong>11</strong> to the SPI host port and <strong>16</strong> are pin synchronisers. The other 271 sit on nets that synthesis renamed, so their owner is not shown. The placer did not keep the threads in separate blocks: thread 0's named registers lie mostly left of centre, thread 1's in a band along the top, and the program memory across the middle. The logic gates carry no register names, so only flip-flops are highlighted.</p>
+</section>
+
+</main>
+</div>
+
+<script type="module">
+const stage = document.getElementById('stage');
+const overlay = document.getElementById('overlay');
+const status = document.getElementById('status');
+const loadBtn = document.getElementById('load');
+const MODEL = 'layout.pe2';
+const LAYERS = ['Metal4','Via3','Metal3','Via2','Metal2','Via1','Metal1','GatPoly','Activ'];
+const DEFAULT_ON = new Set(['Metal4','Via3','Metal3','Via2','Metal2','Via1','Metal1']);
+const GROUPS = [['', 'None'], ['thread0', 'Thread 0'], ['thread1', 'Thread 1'], ['progmem', 'Program memory'], ['host', 'SPI host port']];
+const fmt = (n) => n.toLocaleString('en-US');
+
+fetch(MODEL, { method: 'HEAD' }).then((r) => {
+  const n = +r.headers.get('content-length');
+  if (n) document.getElementById('size').textContent = '(' + (n / 1e6).toFixed(1) + ' MB)';
+}).catch(() => {});
+
+function hasWebGL2() {
+  try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; }
+}
+
+async function start() {
+  if (!hasWebGL2()) {
+    loadBtn.hidden = true;
+    status.textContent = 'This browser has no WebGL 2, so the still image above is shown instead.';
+    return;
+  }
+  loadBtn.disabled = true;
+  status.textContent = 'Loading layout…';
+  try {
+    const t0 = performance.now();
+    const { decode, mount, LAYER_COLORS, DEFAULT_SPREAD } = await import('./viewer.js');
+    const data = await decode(MODEL, (a, t) => {
+      status.textContent = 'Loading layout… ' + (t ? Math.round(100 * a / t) + '%' : (a / 1e6).toFixed(1) + ' MB');
+    });
+    const t1 = performance.now();
+    status.textContent = 'Building ' + fmt(data.layers.reduce((s, l) => s + l.n, 0)) + ' rectangles…';
+    await new Promise((r) => setTimeout(r, 0));
+    const boxes = [];
+    const ui = { toggleIndex(i) { const b = boxes[i]; if (b) { b.checked = !b.checked; b.dispatchEvent(new Event('change')); } } };
+    const v = mount(stage, data, ui);
+    const fs = document.getElementById('layers');
+    const counts = Object.fromEntries(data.layers.map((l) => [l.name, l.n]));
+    LAYERS.forEach((name, i) => {
+      const lab = document.createElement('label');
+      lab.className = 'opt';
+      const hex = '#' + LAYER_COLORS[name].toString(16).padStart(6, '0');
+      lab.innerHTML = `<input type="checkbox"${DEFAULT_ON.has(name) ? ' checked' : ''}><span class="sw" style="background:${hex}" aria-hidden="true"></span><span>${name}</span><span class="k" aria-hidden="true">${i + 1}</span>`;
+      const box = lab.querySelector('input');
+      box.title = fmt(counts[name]) + ' rectangles';
+      box.addEventListener('change', () => v.setLayer(name, box.checked));
+      boxes.push(box);
+      fs.appendChild(lab);
+    });
+    const hl = document.getElementById('hl');
+    const gcount = Object.fromEntries(data.groups.map((g) => [g.name, g.n]));
+    GROUPS.forEach(([key, label]) => {
+      const lab = document.createElement('label');
+      lab.className = 'opt';
+      lab.innerHTML = `<input type="radio" name="hl"${key ? '' : ' checked'}><span>${label}</span>${key ? `<span class="n">${fmt(gcount[key])}</span>` : ''}`;
+      lab.querySelector('input').addEventListener('change', () => v.setHighlight(key));
+      hl.appendChild(lab);
+    });
+    const spreadIn = document.getElementById('spread'), spreadV = document.getElementById('spreadv');
+    const setSpreadUI = (val) => { spreadIn.value = val; spreadV.textContent = val + ' µm'; v.setSpread(+val); };
+    spreadIn.value = DEFAULT_SPREAD; spreadV.textContent = DEFAULT_SPREAD + ' µm';
+    spreadIn.addEventListener('input', () => setSpreadUI(spreadIn.value));
+    const viewBtns = [...document.querySelectorAll('#views .vbtn')];
+    const pressView = (name) => viewBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
+    viewBtns.forEach((b) => b.addEventListener('click', () => {
+      const name = b.dataset.view;
+      if (name === 'apart' && +spreadIn.value < 70) setSpreadUI(70);
+      v.view(name); pressView(name);
+    }));
+    document.getElementById('labels').addEventListener('change', (e) => v.setLabels(e.target.checked));
+    const reset = document.getElementById('reset');
+    reset.disabled = false;
+    reset.addEventListener('click', () => { setSpreadUI(DEFAULT_SPREAD); v.reset(); pressView('angled'); stage.focus(); });
+    document.getElementById('panel').hidden = false;
+    status.textContent = '';
+    document.getElementById('still').hidden = true;
+    overlay.hidden = true;
+    window.__viewerTiming = { fetchDecodeMs: Math.round(t1 - t0), mountMs: Math.round(performance.now() - t1) };
+    window.__viewerReady = true;
+  } catch (e) {
+    console.error(e);
+    status.textContent = 'The 3D model could not be loaded, so the still image is shown. (' + e.message + ')';
+    loadBtn.disabled = false;
+  }
+}
+
+loadBtn.addEventListener('click', start);
+// Large screens with a fine pointer load straight away; phones and tablets wait for a tap.
+const auto = matchMedia('(min-width: 861px) and (pointer: fine)').matches && !new URLSearchParams(location.search).has('still');
+if (auto) start();
+</script>
+</body>
+</html>
